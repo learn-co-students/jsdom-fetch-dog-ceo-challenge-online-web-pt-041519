@@ -59,6 +59,7 @@ function filterDropdown() {
 
     // capture the selection in the drop down on click
     dropdown.addEventListener("change", (e) => {
+        // clear ul defined in renderBreeds(json)
         ulAgain.innerHTML = ""
 
         // iterate through each li breed
