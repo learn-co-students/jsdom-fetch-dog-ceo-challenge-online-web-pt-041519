@@ -1,8 +1,10 @@
 console.log('%c HI', 'color: firebrick')
 
+let myData = []
+
 //on page load
 document.addEventListener('DOMContentLoaded', function() {
-    fetchDogs(), fetchBreeds()
+    fetchDogs(), fetchBreeds(), filterDropdown()
 })
 
 // fetch the images using the url
@@ -38,21 +40,40 @@ function fetchBreeds() {
 function renderBreeds(json) {
     const ul = document.getElementById('dog-breeds')
     let breeds = json.message
-    let breed = ""
 
-    for(var i in breeds) {
+    for(var i = 0 in breeds) {
         let li = document.createElement('li')
         li.innerHTML = `${i}`
+        // font color of a particular <li> changes on click
+        li.addEventListener('click', () => li.style.color = "green")
         ul.appendChild(li)
+        myData.push(li)
     }
-}
+} 
 
-// font color of a particular <li> changes on click
-let color = document.querySelectorAll('li')
-    function colorChange () {
+// dropdown filters breeds that start with a particular letter
+function filterDropdown() {
+    // capture the drop down
+    const dropdown = document.getElementById("breed-dropdown");
+    const ulAgain = document.getElementById('dog-breeds')
 
-    }
+    // capture the selection in the drop down on click
+    dropdown.addEventListener("change", (e) => {
+        ulAgain.innerHTML = ""
+
+        // iterate through each li breed
+        for(const breed of myData) {
+            // if the drop down selection value === first letter of li value
+            if ( breed.innerText.charAt(0) === e.target.value ) {
+                // return list of li's
+                ulAgain.appendChild(breed)
+            } 
+        }
+    })
+}       
+    
 
 
-    color.addEventListener('click', colorChange);
+
+
 
