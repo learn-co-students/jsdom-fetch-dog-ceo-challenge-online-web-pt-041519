@@ -1,4 +1,4 @@
-let myData
+let dogArray = [];
 
 // After DOM load, fetch dog images
 document.addEventListener('DOMContentLoaded', function() {
@@ -6,20 +6,25 @@ document.addEventListener('DOMContentLoaded', function() {
   fetchBreeds();
 
   const selectList = document.getElementById("breed-dropdown");
-  // Show filtered breed list on select list change
+  // Display filtered breed list on select list change
   selectList.addEventListener('change', function(e) {
-    // alert(e.target.value);
-    fetchBreeds(e.target.value);
+    displayBreeds(e.target.value);
   });
+
+  // Change background color on breed click
+  const dogListThree = document.querySelector('ul#dog-breeds');
+  dogListThree.addEventListener('click', function(e) {
+    e.target.style.background = '#00ff00';
+  });
+
 })
 
 // Get 4 dog images and call insertImgs
 function fetchImgs() {
-  let imgs;
   const imgUrl = "https://dog.ceo/api/breeds/image/random/4";
   fetch(imgUrl)
   .then(resp => resp.json())
-  .then(json => insertImgs(json))  
+  .then(results => insertImgs(results))  
 }
 
 // Insert images from api into DOM
@@ -41,38 +46,39 @@ function fetchBreeds(selectedBreed = 'all') {
   const breedUrl = 'https://dog.ceo/api/breeds/list/all';
   fetch(breedUrl)
   .then(resp => resp.json())
-  .then(json => insertBreeds(json, selectedBreed))
+  .then(results => insertBreeds(results))
 }
 
 // Insert breeds into list
-function insertBreeds(json, selectedBreed){
-  const breeds = Object.keys(json.message)  ;
+function insertBreeds(json){
+  const breeds = Object.keys(json.message);
   const dogList = document.querySelector('ul#dog-breeds');
-
-  // Clear bullet list before writing new one
-  dogList.innerHTML = '';
 
   // Iterate through breeds to display
   breeds.forEach(breed => {
     const li = document.createElement('li');
-
-    // If selectedBreed is a character, only show breed that starts with that character
-    if (selectedBreed !== 'all') {
-      if (breed.charAt(0) === selectedBreed) {
-        li.innerText = breed;
-        dogList.appendChild(li);
-      }
-    } else {
-      li.innerText = breed;
-      dogList.appendChild(li);
-    }
-  });
-
-  // Change background color on breed click
-  dogList.addEventListener('click', function(e) {
-    // myData = e
-    e.target.style.background = '#00ff00';
+    li.innerText = breed;
+    dogList.appendChild(li);
+    dogArray.push(li);
   });
 }
 
+// Display filtered list
+function displayBreeds(selectedBreed){
+  // const breeds = Object.keys(json.message) ;
+  const dogListTwo = document.querySelector('ul#dog-breeds');
 
+  // Clear bullet list before writing new one
+  dogListTwo.innerHTML = '';
+
+  dogArray.forEach(breed => {
+    // If selectedBreed is a character, only show breed that starts with that character
+    if (selectedBreed !== 'all') {
+      if (breed.innerText.charAt(0) === selectedBreed) {
+        dogListTwo.appendChild(breed);
+      }
+    } else {
+      dogListTwo.appendChild(breed);
+    }
+  });
+}
