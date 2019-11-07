@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to turn the selected index (from the filterSelection dropdown) into the corresponding letter.
     function getLetter(selectedIndex) {
         const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-        return alphabet[selectedIndex - 1]; // must subtract 1 because index 0 is "all".
+        return alphabet[selectedIndex - 1]; // must subtract 1 because index 0 is "all" but index 0 of alphabet is "a".
     };
 
     // Function to clear previously listed breeds or "no breed" message.
@@ -83,6 +83,8 @@ document.addEventListener("DOMContentLoaded", function() {
         newChild.addEventListener("click", function() { this.style.color = randomColor(); });
         breedSelect.appendChild(newChild);
     };
+
+
 
 
     // CHALLENGE FOUR - ADD FILTERING ABILITY
