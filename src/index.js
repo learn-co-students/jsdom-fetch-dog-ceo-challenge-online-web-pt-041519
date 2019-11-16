@@ -2,12 +2,15 @@ console.log('%c HI', 'color: firebrick')
 const imgUrl = 'https://dog.ceo/api/breeds/image/random/4'
 const breedUrl = 'https://dog.ceo/api/breeds/list/all'
 
-
 document.addEventListener('DOMContentLoaded', function() {
+    sortBreeds()
+ 
+// Fetch images from imgUrl
     fetch(imgUrl)
         .then(resp => resp.json())
         .then(json => showImgs(json))
 
+// Render images from imgUrl in the DOM
     function showImgs(json) {
         const imgDiv = document.querySelector('div#dog-image-container')
         json.message.forEach(image => {
@@ -18,10 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     }
 
+// Fetch all breeds from breedUrl
     fetch(breedUrl)
         .then(resp => resp.json())
         .then(json => showBreeds(json))
 
+// Render list of all breeds from breedUrl in the DOM
     function showBreeds(json) {
         const breedUl = document.querySelector('ul#dog-breeds')
         for (breed in json.message) {
@@ -39,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+// Sort breeds alphabetically based on dropdown selection
     function sortBreeds() {
         const dropdown = document.querySelector('#breed-dropdown')
         dropdown.addEventListener('change', function(e) {
@@ -55,6 +61,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }    
 
 })
-
-
-
