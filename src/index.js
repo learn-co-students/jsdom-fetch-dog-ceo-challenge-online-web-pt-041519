@@ -4,7 +4,7 @@ console.log('%c HI', 'color: firebrick')
 document.addEventListener("DOMContentLoaded", function(){
   fetchImg();
   fetchBreed();
-  filterBreeds();
+  // filterBreeds();
 })
 
 // urls for the doggo stuff
@@ -37,20 +37,38 @@ function fetchBreed(){
   .then(resp => resp.json())
   .then(json => {
     breeds = Object.keys(json.message);
-    breeds.forEach(breed => {
-      addBreedToDom(breed);
-    });
+    // breeds.forEach(breed => {
+    //   addBreedToDom(breed);
+    // })
+    addBreedToDom(breeds);
+    filterBreeds(breeds);
   })
 }
 
 
 // adds breed to container ul
-function addBreedToDom(breed){
-  let breedContainer = document.getElementById("dog-breeds");
-  let newEl = document.createElement("li");
-  newEl.innerText = breed;
-  changeColor(newEl);
-  breedContainer.appendChild(newEl);
+function addBreedToDom(breeds){
+
+  let i = 0
+  while (i < breeds.length) {
+    let ul = document.getElementById("dog-breeds");
+    let newEl = document.createElement("li");
+    newEl.innerText = breeds[i]
+    changeColor(newEl);
+    ul.appendChild(newEl);
+    i++;
+  }
+  
+
+  // breeds.forEach(breed => {
+
+  //     let breedContainer = document.getElementById("dog-breeds");
+  //     let newEl = document.createElement("li");
+  //     newEl.innerText = breed;
+  //     changeColor(newEl);
+  //     breedContainer.appendChild(newEl);
+
+  // });
 }
 
 
@@ -64,20 +82,16 @@ function changeColor(breed){
 
 
 // NOT WORKING THE WAY I WANT IT..DFASDFASDHFASFHASDFASDKFASDFASDFJKERTT
-function filterBreeds(){
-  
-  const dropDown = document.getElementById('breed-dropdown');
-  // console.log(allBreeds);
+function filterBreeds(breeds){
 
-  dropDown.addEventListener("change", (e) => {
-    const allBreeds = document.querySelectorAll('li');
-    allBreeds.forEach(breed => {
-      // console.log(e.target.innerText)
-      if (breed.innerText.charAt(0) ===  e.target.value) {
-        breed.style.visibility = 'visable';
-      } else {
-        breed.style.visibility = 'hidden';
-      }
-    })
-  })
-}
+  const dropDown = document.getElementById('breed-dropdown');
+  dropDown.onchange = () => {
+    let letter = dropDown.value;
+    let filteredBreeds = breeds.filter(breed => breed[0] === letter);
+    // console.log(filteredBreeds)
+    const ul = document.getElementById("dog-breeds");
+    ul.innerHTML = '';
+    addBreedToDom(filteredBreeds);
+    
+  };
+};
