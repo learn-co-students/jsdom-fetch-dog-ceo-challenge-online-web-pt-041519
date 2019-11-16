@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const dropdown = document.querySelector('#breed-dropdown')
         dropdown.addEventListener('change', function(e) {
             const letter = e.target.value 
-            const breedList = document.querySelectorAll('li')
-            breedList.forEach(item => {
+            const listBreeds = document.querySelectorAll('li')
+            listBreeds.forEach(item => {
                 if (item.innerText.startsWith(letter)) {
                     item.hidden = false
                 } else {
