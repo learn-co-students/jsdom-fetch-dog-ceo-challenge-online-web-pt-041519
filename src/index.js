@@ -40,11 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function sortBreeds() {
-        const dropDown = document.querySelector('#breed-dropdown')
-        dropDown.addEventListener('change', function(e) {
+        const dropdown = document.querySelector('#breed-dropdown')
+        dropdown.addEventListener('change', function(e) {
             const letter = e.target.value 
-            const breedByLetter = document.querySelectorAll('li')
-            breedByLetter.forEach(item => {
+            const breedList = document.querySelectorAll('li')
+            breedList.forEach(item => {
                 if (item.innerText.startsWith(letter)) {
                     item.hidden = false
                 } else {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
         })
-    }
+    }    
 
 })
 
